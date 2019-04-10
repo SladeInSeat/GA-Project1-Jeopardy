@@ -1,23 +1,73 @@
-.title{
+body{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-content: center;
+    background: green;
+}
 
+.title{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background: yellow;
+    height: 8vh;
 }
 
 .gameContainer{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    background: blue;
+    height: 70vh;
 
+}
+.categoryColumn{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 68vh;
+    width: 10vw;
+    margin: 5px 5px;
+    background: orange;
+}
+.testBox{
+    height: 11vh;
+    width: 9vw;
+    color: blanchedalmond;
 }
 
 .gameStatus{
-
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: stretch;
+    background: orange;
+    height: 20vh;
 }
 
 .playerStatus{
-
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-content: stretch;
+    background: blue;
 }
 
 .playerName{
+    display: flex;
+    background: plum;
 
 }
 
 .playerScore{
-    
+    display: flex;
+    background: red;
 }
