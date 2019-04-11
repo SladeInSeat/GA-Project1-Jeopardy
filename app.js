@@ -18,6 +18,8 @@ for(let i = 0;i < 5;i++){
         iString = i.toString()
         newBox.setAttribute('id',iString.concat(y*100));
         newColumn.appendChild(newBox);
+        newBox.addEventListener('click',populateModal);
+
     }
 
 };
@@ -30,17 +32,24 @@ buttonObj.addEventListener('click', populateModal);
 
 function populateModal (){
     modalObj.style.display = 'flex';
+    idString = this.getAttribute('id');
     let questionContainer = document.getElementsByClassName('question')[0];
-    let quesitonText = questionObjects['0100'].question;
+    let quesitonText = questionObjects[idString].question;
     questionContainer.textContent = quesitonText;
     for(let i = 0; i < 4; i++){
         let answerContainer = document.getElementsByClassName('answer')[i];
-        let answerText = questionObjects['0100'].answers[i];
+        let answerText = questionObjects[idString].answers[i];
         answerContainer.textContent = answerText;
     }
-
 }
 
+
+function getSelfID (){
+    idString = this.getAttribute('id');
+    console.log(idString);
+    console.log(typeof(idString));
+}
+//  close modal window by clicking it
 window.addEventListener('click',function(event){
     if(event.target == modalObj){
         modalObj.style.display = 'none';
