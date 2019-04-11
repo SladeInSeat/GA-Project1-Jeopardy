@@ -22,7 +22,7 @@ body{
     justify-content: center;
     align-content: center;
     background: blue;
-    height: 70vh;
+    height: 75vh;
 
 }
 .categoryColumn{
@@ -31,19 +31,20 @@ body{
     flex-wrap: nowrap;
     justify-content: space-evenly;
     align-items: center;
-    height: 60vh;
+    height: 70vh;
     width: 12vw;
     margin: 5px 5px;
     background: orange;
 }
-.testBox{
+.questionBox{
     display: flex;
     justify-content: center;
-    height: 10vh;
+    height: 9vh;
     width: 10vw;
     align-items: center;
     border: 5px solid black;
     color: blanchedalmond;
+    background: blue;
 }
 
 .gameStatus{
@@ -64,7 +65,7 @@ body{
     align-items: center;
     align-content: center;
     height: 10vh;
-    width: 10vw;
+    width: 16vw;
     background: blue;
 }
 
@@ -75,6 +76,7 @@ body{
     padding: 5px;
     background: plum;
     height: 5vh;
+    widows: 8vw;
 
 }
 
