@@ -1,7 +1,6 @@
 
 
-//  Build Columns and QA Boxes that fill out game container. Hardcoded Categories
-//  and point values.
+//  Build Columns and question boxes that fill out game container
 
 let gameContainer = document.getElementsByClassName('gameContainer')[0];
 
@@ -23,3 +22,30 @@ for(let i = 0;i < 5;i++){
 
 };
 
+let modalObj = document.getElementsByClassName('modalContainer')[0];
+let buttonObj = document.getElementById('modalBtn');
+
+buttonObj.addEventListener('click', hideModal);
+
+function hideModal (){
+    modalObj.style.display = 'flex'
+}
+
+window.addEventListener('click',function(event){
+    if(event.target == modalObj){
+        modalObj.style.display = 'none';
+    }
+}); // event.target credited to https://www.w3schools.com/howto/howto_css_modals.asp
+
+questionObjects = {
+    '0100' :    {  pointValue : 100,
+                    question : "What's my name?",
+                    answers : ['Snoop Dog','Ebenezer','Sparticus','Slade'],
+                    correctAnswer : 'Slade'
+                },
+    '0200' :    {   pointValue: 200,
+                    question:   "Who won 2019 NCAA MBB Tourney?",
+                    answers:    ["UNC","UVA","TT","Pitt"],
+                    correntAnswer:  "UVA"
+                }    
+}
