@@ -22,23 +22,34 @@ for(let i = 0;i < 5;i++){
 
 };
 
+//  modal creation
 let modalObj = document.getElementsByClassName('modalContainer')[0];
 let buttonObj = document.getElementById('modalBtn');
 
-buttonObj.addEventListener('click', hideModal);
+buttonObj.addEventListener('click', populateModal);
 
-function hideModal (){
-    modalObj.style.display = 'flex'
+function populateModal (){
+    modalObj.style.display = 'flex';
+    let questionContainer = document.getElementsByClassName('question')[0];
+    let quesitonText = questionObjects['0100'].question;
+    questionContainer.textContent = quesitonText;
+    for(let i = 0; i < 4; i++){
+        let answerContainer = document.getElementsByClassName('answer')[i];
+        let answerText = questionObjects['0100'].answers[i];
+        answerContainer.textContent = answerText;
+    }
+
 }
 
 window.addEventListener('click',function(event){
     if(event.target == modalObj){
         modalObj.style.display = 'none';
     }
-}); // event.target credited to https://www.w3schools.com/howto/howto_css_modals.asp
+}); // window. and event.target credited to https://www.w3schools.com/howto/howto_css_modals.asp
+
 
 questionObjects = {
-    '0100' :    {  pointValue : 100,
+    '0100' :    {   pointValue : 100,
                     question : "What's my name?",
                     answers : ['Snoop Dog','Ebenezer','Sparticus','Slade'],
                     correctAnswer : 'Slade'
