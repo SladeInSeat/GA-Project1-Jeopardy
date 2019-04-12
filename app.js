@@ -1,9 +1,11 @@
 
+//  Global Veriables
 let questionsRemaining = 25;    //  variable to track when to end game
+const categoryNames = ['Geography','History','Sports & Leisure','Entertainment','Arts & Literature'];
+const gameContainer = document.getElementsByClassName('gameContainer')[0];
+const modalObj = document.getElementsByClassName('modalContainer')[0];
 
 //  Build Columns and question boxes that fill out game container
-
-let gameContainer = document.getElementsByClassName('gameContainer')[0];
 
 for (let i = 0; i < 5; i++) {
     let newColumn = document.createElement('div');
@@ -14,7 +16,7 @@ for (let i = 0; i < 5; i++) {
         let newBox = document.createElement('div');
         newBox.setAttribute('class', 'questionBox');
         if (y == 0) {
-            newBox.textContent = 'Category';
+            newBox.textContent = categoryNames[i];
             newColumn.appendChild(newBox);
         } else { 
             newBox.textContent = y * 100;
@@ -22,26 +24,14 @@ for (let i = 0; i < 5; i++) {
             newBox.setAttribute('id', iString.concat(y * 100));
             newColumn.appendChild(newBox);
             newBox.addEventListener('click', populateModal) };
-;
     }
-
 };
 
-//  modal object, can it stay out here? i want to put it in the functions that use it later
-let modalObj = document.getElementsByClassName('modalContainer')[0];
-
-//  Event listeners
-
-//  close modal window by clicking it
-window.addEventListener('click', function (event) {
-    if (event.target == modalObj) {
-        modalObj.style.display = 'none';
-    }
-});    // window. and event.target credited to https://www.w3schools.com/howto/howto_css_modals.asp
 
 //  Populates modal div by getting id from this. div, using id to look up data from
 //  questionObjects array, populates questions and answers with data, creates 
 //  event listeners on answer divs.
+
 function populateModal() {
     modalObj.style.display = 'flex';
     idString = this.getAttribute('id'); // dont use let bc i need it elsewhere, bad! but i dont know how to pass it around
@@ -87,10 +77,12 @@ function answerTruthPointsClear() {
     
     if(questionsRemaining == 0){
         modalObj.style.display = 'flex';
+        let answerContainer = document.getElementsByClassName('answer')[0];
         let questionContainer = document.getElementsByClassName('question')[0];
         let currentScore = document.getElementsByClassName('playerScore')[0].textContent
-        let winMessage = "Congrats, You win\nYour score is positive: \n " + currentScore
-        let loseMessage = "Too bad, you Lose\nYour score is negative:\n " + currentScore
+        answerContainer.textContent = "Your Final Score: " + currentScore;
+        let winMessage = "Congrats, you win because your score is positive"
+        let loseMessage = "Too bad, you lose because your score is negative"
         if(currentScore >= 0){
             questionContainer.textContent = winMessage;
         } else{
