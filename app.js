@@ -13,12 +13,15 @@ for (let i = 0; i < 5; i++) {
         let newBox = document.createElement('div');
         newBox.setAttribute('class', 'questionBox');
         if (y == 0) {
-            newBox.textContent = 'Category'
-        } else { newBox.textContent = y * 100; };
-        iString = i.toString()
-        newBox.setAttribute('id', iString.concat(y * 100));
-        newColumn.appendChild(newBox);
-        newBox.addEventListener('click', populateModal);
+            newBox.textContent = 'Category';
+            newColumn.appendChild(newBox);
+        } else { 
+            newBox.textContent = y * 100;
+            iString = i.toString()
+            newBox.setAttribute('id', iString.concat(y * 100));
+            newColumn.appendChild(newBox);
+            newBox.addEventListener('click', populateModal) };
+;
     }
 
 };
@@ -27,8 +30,6 @@ for (let i = 0; i < 5; i++) {
 let modalObj = document.getElementsByClassName('modalContainer')[0];
 
 //  Event listeners
-//  Event listener for quesiton Div
-// buttonObj.addEventListener('click', populateModal);
 
 //  close modal window by clicking it
 window.addEventListener('click', function (event) {
@@ -80,29 +81,6 @@ function answerTruthPointsClear() {
     currentQuestionBox.removeEventListener('click', populateModal);
 
 };
-
-
-
-testObejects = {
-    '0100': {
-        pointValue: 100,
-        question: "What is my name?",
-        answers: ['Snoop Dog', 'Ebenezer', 'Sparticus', 'Slade'],
-        correctAnswer: 'Slade'
-    },
-    '0200': {
-        pointValue: 200,
-        question: "Who won 2019 NCAA MBB Tourney?",
-        answers: ["UNC", "UVA", "TT", "Pitt"],
-        correctAnswer: "UVA"
-    },
-    '0300': {
-        pointValue: 300,
-        question: "Are you serious?",
-        answers: ['Maybe', 'You betcha', 'are you???', 'Yes'],
-        correctAnswer: 'You betcha'
-    }
-}
 
 // data from http://www.freepubquiz.co.uk/trivial-pursuit.html
 
