@@ -16,3 +16,8 @@ Start writing the code. Realize I didn't think of everything.
 More white-boarding to address unforseen hurdles.
 Write more code.
 Minimum Viable Prodect reached. Work on strech goals as time permits.
+
+Stretch Goals Remaining:
+Enable Player 2 ('buzz-in' function, turn tracking, score toggling)
+Visually indicate if answer is correct or incorrect, indicate correct answer if given answer is incorrect
+
