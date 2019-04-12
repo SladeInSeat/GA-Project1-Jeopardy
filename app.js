@@ -60,15 +60,19 @@ function answerTruthPointsClear(){
     let selectedAnswer = this.textContent;
     let correctAnswer = questionObjects[idString].correctAnswer
     let currentScore = document.getElementsByClassName('playerScore')[0].textContent
-    console.log(currentScore);
     let currentPointValue = Number(questionObjects[idString].pointValue)
-    console.log(currentPointValue);
     if(selectedAnswer == correctAnswer){
         document.getElementsByClassName('playerScore')[0].textContent = Number(currentScore) + Number(currentPointValue);
         console.log('picked correctly')
     } else{ document.getElementsByClassName('playerScore')[0].textContent = Number(currentScore) - Number(currentPointValue);;
         console.log('WRONG')}
     modalObj.style.display = 'none';
+    document.getElementsByClassName('question')[0].textContent = ""
+    for(let i = 0;i < 4;i++){
+        let answerContainer = document.getElementsByClassName('answer')[i];
+        let answerText = "";
+        answerContainer.textContent = answerText;
+    }
 };
 
 
