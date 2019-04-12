@@ -66,7 +66,7 @@ function answerTruthPointsClear(){
     if(selectedAnswer == correctAnswer){
         document.getElementsByClassName('playerScore')[0].textContent = Number(currentScore) + Number(currentPointValue);
         console.log('picked correctly')
-    } else{ currentScore -= currentPointValue;
+    } else{ document.getElementsByClassName('playerScore')[0].textContent = Number(currentScore) - Number(currentPointValue);;
         console.log('WRONG')}
 };
 
