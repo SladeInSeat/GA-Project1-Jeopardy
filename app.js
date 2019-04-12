@@ -73,6 +73,9 @@ function answerTruthPointsClear(){
         let answerText = "";
         answerContainer.textContent = answerText;
     }
+    currentQuestionBox = document.getElementById(idString);
+    currentQuestionBox.textContent = '';
+    
 };
 
 
