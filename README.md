@@ -5,7 +5,7 @@ Play a Jeopadry-like trivia game in a browser. Select a point value square from 
 ## Technologies used:
 HTML, Javascript, CSS, git, git-hub Projects, git-hub pages
 
-##Requirements:
+## Requirements:
 Sense of humor
 
 ## Process:
