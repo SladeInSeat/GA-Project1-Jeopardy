@@ -1,4 +1,5 @@
 
+let questionsRemaining = 25;    //  variable to track when to end game
 
 //  Build Columns and question boxes that fill out game container
 
@@ -43,7 +44,7 @@ window.addEventListener('click', function (event) {
 //  event listeners on answer divs.
 function populateModal() {
     modalObj.style.display = 'flex';
-    idString = this.getAttribute('id');
+    idString = this.getAttribute('id'); // dont use let bc i need it elsewhere, bad! but i dont know how to pass it around
     let questionContainer = document.getElementsByClassName('question')[0];
     let quesitonText = questionObjects[idString].question;
     questionContainer.textContent = quesitonText;
@@ -69,17 +70,33 @@ function answerTruthPointsClear() {
         document.getElementsByClassName('playerScore')[0].textContent = Number(currentScore) - Number(currentPointValue);;
         console.log('WRONG')
     }
-    modalObj.style.display = 'none';
+    modalObj.style.display = 'none';    // hide modal
+    //  loop through answer boxes and remove content by setting to empty string
     document.getElementsByClassName('question')[0].textContent = ""
     for (let i = 0; i < 4; i++) {
         let answerContainer = document.getElementsByClassName('answer')[i];
         let answerText = "";
         answerContainer.textContent = answerText;
     }
+    //  remove event listener from clicked on question box
     currentQuestionBox = document.getElementById(idString);
     currentQuestionBox.textContent = '';
     currentQuestionBox.removeEventListener('click', populateModal);
 
+    questionsRemaining -= 1;
+    
+    if(questionsRemaining == 0){
+        modalObj.style.display = 'flex';
+        let questionContainer = document.getElementsByClassName('question')[0];
+        let currentScore = document.getElementsByClassName('playerScore')[0].textContent
+        let winMessage = "Congrats, You win\nYour score is positive: \n " + currentScore
+        let loseMessage = "Too bad, you Lose\nYour score is negative:\n " + currentScore
+        if(currentScore >= 0){
+            questionContainer.textContent = winMessage;
+        } else{
+            questionContainer.textContent = loseMessage;
+        }
+    }
 };
 
 // data from http://www.freepubquiz.co.uk/trivial-pursuit.html
