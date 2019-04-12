@@ -37,7 +37,7 @@ window.addEventListener('click',function(event){
     }
 });    // window. and event.target credited to https://www.w3schools.com/howto/howto_css_modals.asp
 
-//  Populates modal div by geting id from this. div, using id to look up data from
+//  Populates modal div by getting id from this. div, using id to look up data from
 //  questionObjects array, populates questions and answers with data, creates 
 //  event listeners on answer divs.
 function populateModal (){
@@ -68,6 +68,7 @@ function answerTruthPointsClear(){
         console.log('picked correctly')
     } else{ document.getElementsByClassName('playerScore')[0].textContent = Number(currentScore) - Number(currentPointValue);;
         console.log('WRONG')}
+    modalObj.style.display = 'none';
 };
 
 
