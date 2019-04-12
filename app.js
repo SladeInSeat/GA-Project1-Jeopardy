@@ -43,10 +43,8 @@ window.addEventListener('click',function(event){
 function populateModal (){
     modalObj.style.display = 'flex';
     idString = this.getAttribute('id');
-    console.log(idString)
     let questionContainer = document.getElementsByClassName('question')[0];
     let quesitonText = questionObjects[idString].question;
-    console.log(quesitonText)
     questionContainer.textContent = quesitonText;
     for(let i = 0; i < 4; i++){
         let answerContainer = document.getElementsByClassName('answer')[i];
@@ -59,8 +57,17 @@ function populateModal (){
 }
 
 function answerTruthPointsClear(){
-    selectedAnswer = this.textContent;
-    console.log(selectedAnswer);
+    let selectedAnswer = this.textContent;
+    let correctAnswer = questionObjects[idString].correctAnswer
+    let currentScore = document.getElementsByClassName('playerScore')[0].textContent
+    console.log(currentScore);
+    let currentPointValue = Number(questionObjects[idString].pointValue)
+    console.log(currentPointValue);
+    if(selectedAnswer == correctAnswer){
+        document.getElementsByClassName('playerScore')[0].textContent = Number(currentScore) + Number(currentPointValue);
+        console.log('picked correctly')
+    } else{ currentScore -= currentPointValue;
+        console.log('WRONG')}
 };
 
 
@@ -74,7 +81,7 @@ questionObjects = {
     '0200' :    {   pointValue: 200,
                     question:   "Who won 2019 NCAA MBB Tourney?",
                     answers:    ["UNC","UVA","TT","Pitt"],
-                    correntAnswer:  "UVA"
+                    correctAnswer:  "UVA"
                 },
     '0300'  :   {   pointValue: 300,
                     question:   "Are you serious?",
