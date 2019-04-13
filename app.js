@@ -6,26 +6,48 @@ const gameContainer = document.getElementsByClassName('gameContainer')[0];
 const modalObj = document.getElementsByClassName('modalContainer')[0];
 
 //  Build Columns and question boxes that fill out game container
-
-for (let i = 0; i < 5; i++) {
-    let newColumn = document.createElement('div');
-    newColumn.setAttribute('class', 'categoryColumn');
-    newColumn.setAttribute('id', 'category' + i);
-    gameContainer.appendChild(newColumn);
-    for (let y = 0; y < 6; y++) {
-        let newBox = document.createElement('div');
-        newBox.setAttribute('class', 'questionBox');
-        if (y == 0) {
-            newBox.textContent = categoryNames[i];
-            newColumn.appendChild(newBox);
-        } else { 
-            newBox.textContent = y * 100;
-            iString = i.toString()
-            newBox.setAttribute('id', iString.concat(y * 100));
-            newColumn.appendChild(newBox);
-            newBox.addEventListener('click', populateModal) };
+function createGrid(numberOfColumns, numberOfRows, insertTarget){
+    for(let i = 0; i < numberOfColumns; i++){
+        let newColumn = document.createElement('div');
+        newColumn.setAttribute('class', 'categoryColumn');
+        newColumn.setAttribute('id', 'category' + i);
+        insertTarget.appendChild(newColumn);
+        for (let y = 0; y < numberOfRows; y++) {
+            let newBox = document.createElement('div');
+            newBox.setAttribute('class', 'questionBox');
+            if (y == 0) {
+                newBox.textContent = categoryNames[i];
+                newColumn.appendChild(newBox);
+            } else { 
+                newBox.textContent = y * 100;
+                iString = i.toString()
+                newBox.setAttribute('id', iString.concat(y * 100));
+                newColumn.appendChild(newBox);
+                newBox.addEventListener('click', populateModal) };
+        }
     }
 };
+
+createGrid(5,6,gameContainer)
+// for (let i = 0; i < 5; i++) {
+//     let newColumn = document.createElement('div');
+//     newColumn.setAttribute('class', 'categoryColumn');
+//     newColumn.setAttribute('id', 'category' + i);
+//     gameContainer.appendChild(newColumn);
+//     for (let y = 0; y < 6; y++) {
+//         let newBox = document.createElement('div');
+//         newBox.setAttribute('class', 'questionBox');
+//         if (y == 0) {
+//             newBox.textContent = categoryNames[i];
+//             newColumn.appendChild(newBox);
+//         } else { 
+//             newBox.textContent = y * 100;
+//             iString = i.toString()
+//             newBox.setAttribute('id', iString.concat(y * 100));
+//             newColumn.appendChild(newBox);
+//             newBox.addEventListener('click', populateModal) };
+//     }
+// };
 
 
 //  Populates modal div by getting id from this. div, using id to look up data from
