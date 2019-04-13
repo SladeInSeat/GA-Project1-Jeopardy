@@ -76,26 +76,8 @@ function check_display_WinCondition(){
         }
     }
 }
-//  On click of Answer box, does these things:
-//  gets text value of answer container clicked
-//  compares to corresponding correct answer in data array
-//  adds or subtacts points from player point total
-//  closes and clears modal,
-//  clears clicked on question box of text and event listener
-//  updates qeustionsRemaining variable to keep track of how many questions are left in game
-//  when qeustionsRemaining hits zero, brings up modal to display win/lose message and score
-function answerTruthPointsClear() {
-    let selectedAnswer = this.textContent;
-    let correctAnswer = questionObjects[idString].correctAnswer
-    let currentScore = document.getElementsByClassName('playerScore')[0].textContent
-    let currentPointValue = Number(questionObjects[idString].pointValue)
-    if (selectedAnswer == correctAnswer) {
-        document.getElementsByClassName('playerScore')[0].textContent = Number(currentScore) + Number(currentPointValue);
-        console.log('picked correctly')
-    } else {
-        document.getElementsByClassName('playerScore')[0].textContent = Number(currentScore) - Number(currentPointValue);;
-        console.log('WRONG')
-    }
+
+function clearhideModal(){
     modalObj.style.display = 'none';    // hide modal
     //  loop through answer boxes and remove content by setting to empty string
     document.getElementsByClassName('question')[0].textContent = ""
@@ -108,24 +90,66 @@ function answerTruthPointsClear() {
     currentQuestionBox = document.getElementById(idString);
     currentQuestionBox.textContent = '';
     currentQuestionBox.removeEventListener('click', populateModal);
+}
 
-    check_display_WinCondition()
-    // questionsRemaining -= 1;
-    
-    // if(questionsRemaining == 0){
-    //     modalObj.style.display = 'flex';
-    //     let answerContainer = document.getElementsByClassName('answer')[0];
-    //     let questionContainer = document.getElementsByClassName('question')[0];
-    //     let currentScore = document.getElementsByClassName('playerScore')[0].textContent
-    //     answerContainer.textContent = "Your Final Score: " + currentScore;
-    //     let winMessage = "Congrats, you win because your score is positive"
-    //     let loseMessage = "Too bad, you lose because your score is negative"
-    //     if(currentScore >= 0){
-    //         questionContainer.textContent = winMessage;
-    //     } else{
-    //         questionContainer.textContent = loseMessage;
-    //     }
+function isSelectedAnswerCorrect(selectedAnswer){
+    let correctAnswer = questionObjects[idString].correctAnswer
+    return selectedAnswer == correctAnswer;
+}
+
+function getCurrentScore(){
+    let currentScoreValue = Number(document.getElementsByClassName('playerScore')[0].textContent)
+    return currentScoreValue
+}
+
+function getCurrentPointValue(){
+    let currentPointValueVar = Number(questionObjects[idString].pointValue)
+    return currentPointValueVar
+}
+function addToScore(callback1,callback2){
+    let num1 = callback1()
+    let num2 = callback2()
+    document.getElementsByClassName('playerScore')[0].textContent = Number(num1) + Number(num2);
+}
+function subtractFromScore(callback1,callback2){
+    let num1 = callback1()
+    let num2 = callback2()
+    document.getElementsByClassName('playerScore')[0].textContent = Number(num1) - Number(num2);
+}
+//  On click of Answer box, does these things:
+//  gets text value of answer container clicked
+//  compares to corresponding correct answer in data array
+//  adds or subtacts points from player point total
+//  closes and clears modal,
+//  clears clicked on question box of text and event listener
+//  updates qeustionsRemaining variable to keep track of how many questions are left in game
+//  when qeustionsRemaining hits zero, brings up modal to display win/lose message and score
+function answerTruthPointsClear() {
+    let selectedAnswer = this.textContent;
+    // let currentScore = document.getElementsByClassName('playerScore')[0].textContent
+    // let currentPointValue = Number(questionObjects[idString].pointValue)
+    if (isSelectedAnswerCorrect(selectedAnswer)) {
+        addToScore(getCurrentScore,getCurrentPointValue);
+        // document.getElementsByClassName('playerScore')[0].textContent = Number(currentScore) + Number(currentPointValue);
+        console.log('picked correctly')
+    } else {
+        subtractFromScore(getCurrentScore,getCurrentPointValue);
+        // document.getElementsByClassName('playerScore')[0].textContent = Number(currentScore) - Number(currentPointValue);
+        console.log('WRONG');
+    }
+    // let selectedAnswer = this.textContent;
+    // let correctAnswer = questionObjects[idString].correctAnswer
+    // let currentScore = document.getElementsByClassName('playerScore')[0].textContent
+    // let currentPointValue = Number(questionObjects[idString].pointValue)
+    // if (selectedAnswer == correctAnswer) {
+    //     document.getElementsByClassName('playerScore')[0].textContent = Number(currentScore) + Number(currentPointValue);
+    //     console.log('picked correctly')
+    // } else {
+    //     document.getElementsByClassName('playerScore')[0].textContent = Number(currentScore) - Number(currentPointValue);;
+    //     console.log('WRONG')
     // }
+    clearhideModal()
+    check_display_WinCondition()
 };
 
 // data from http://www.freepubquiz.co.uk/trivial-pursuit.html
