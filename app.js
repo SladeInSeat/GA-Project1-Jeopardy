@@ -2,8 +2,7 @@
 //  Global Veriables
 let questionsRemaining = 25;    //  variable to track when to end game
 const categoryNames = ['Geography', 'History', 'Sports & Leisure', 'Entertainment', 'Arts & Literature'];
-const gameContainer = document.getElementsByClassName('gameContainer')[0];
-const modalObj = document.getElementsByClassName('modalContainer')[0];
+let idString = ''
 
 function insertNewColumn(insertTarget, classValueAsString = 'noClassGiven', idValueAsString = 'noIdGiven') {
     let newColumn = document.createElement('div');
@@ -37,8 +36,8 @@ function createGrid(numberOfColumns, numberOfRows, insertTarget) {
 //  event listeners on answer divs.
 
 function populateModal() {
-    modalObj.style.display = 'flex';
-    idString = this.getAttribute('id'); // dont use let bc i need it elsewhere, bad! but i dont know how to pass it around
+    document.getElementsByClassName('modalContainer')[0].style.display = 'flex';
+    idString = this.getAttribute('id'); 
     this.textContent = '';
     this.removeEventListener('click', populateModal);
     let questionContainer = document.getElementsByClassName('question')[0];
@@ -58,7 +57,7 @@ function check_display_WinCondition() {
     questionsRemaining -= 1;
 
     if (questionsRemaining == 0) {
-        modalObj.style.display = 'flex';
+        document.getElementsByClassName('modalContainer')[0].style.display = 'flex';
         let answerContainer = document.getElementsByClassName('answer')[0];
         let questionContainer = document.getElementsByClassName('question')[0];
         let currentScore = document.getElementsByClassName('playerScore')[0].textContent
@@ -73,7 +72,7 @@ function check_display_WinCondition() {
     }
 }
 function clearhideModal() {
-    modalObj.style.display = 'none';    // hide modal
+    document.getElementsByClassName('modalContainer')[0].style.display = 'none';    // hide modal
     //  loop through answer boxes and remove content by setting to empty string
     document.getElementsByClassName('question')[0].textContent = ""
     for (let i = 0; i < 4; i++) {
@@ -81,10 +80,6 @@ function clearhideModal() {
         let answerText = "";
         answerContainer.textContent = answerText;
     }
-    //  remove event listener from clicked on question box
-    // currentQuestionBox = document.getElementById(idString);
-    // currentQuestionBox.textContent = '';
-    // currentQuestionBox.removeEventListener('click', populateModal);
 }
 function isSelectedAnswerCorrect(selectedAnswer) {
     let correctAnswer = questionObjects[idString].correctAnswer
@@ -103,6 +98,7 @@ function addToScore(callback1, callback2) {
     let num2 = callback2()  // wtf
     document.getElementsByClassName('playerScore')[0].textContent = Number(num1) + Number(num2);
 }
+
 function subtractFromScore(callback1, callback2) {
     let num1 = callback1()
     let num2 = callback2()
@@ -129,7 +125,7 @@ function answerTruthPointsClearWin() {
     check_display_WinCondition()
 };
 
-createGrid(5, 6, gameContainer);
+createGrid(5, 6, document.getElementsByClassName('gameContainer')[0]);
 
 // data from http://www.freepubquiz.co.uk/trivial-pursuit.html
 
