@@ -5,13 +5,21 @@ const categoryNames = ['Geography','History','Sports & Leisure','Entertainment',
 const gameContainer = document.getElementsByClassName('gameContainer')[0];
 const modalObj = document.getElementsByClassName('modalContainer')[0];
 
+function insertNewColumn(insertTarget,classValueAsString = 'noClassGiven',idValueAsString = 'noIdGiven'){
+    let newColumn = document.createElement('div');
+    newColumn.setAttribute('class', classValueAsString);
+    newColumn.setAttribute('id', idValueAsString);
+    insertTarget.appendChild(newColumn);
+    return newColumn;
+}
 //  Build Columns and question boxes that fill out game container
 function createGrid(numberOfColumns, numberOfRows, insertTarget){
     for(let i = 0; i < numberOfColumns; i++){
-        let newColumn = document.createElement('div');
-        newColumn.setAttribute('class', 'categoryColumn');
-        newColumn.setAttribute('id', 'category' + i);
-        insertTarget.appendChild(newColumn);
+        let newColumn = insertNewColumn(insertTarget,'categoryColumn', "column" + categoryNames[i]);
+        // let newColumn = document.createElement('div');
+        // newColumn.setAttribute('class', 'categoryColumn');
+        // newColumn.setAttribute('id', 'category' + i);
+        // insertTarget.appendChild(newColumn);
         for (let y = 0; y < numberOfRows; y++) {
             let newBox = document.createElement('div');
             newBox.setAttribute('class', 'questionBox');
@@ -20,7 +28,7 @@ function createGrid(numberOfColumns, numberOfRows, insertTarget){
                 newColumn.appendChild(newBox);
             } else { 
                 newBox.textContent = y * 100;
-                iString = i.toString()
+                let iString = i.toString()
                 newBox.setAttribute('id', iString.concat(y * 100));
                 newColumn.appendChild(newBox);
                 newBox.addEventListener('click', populateModal) };
