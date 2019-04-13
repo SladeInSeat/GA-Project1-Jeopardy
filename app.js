@@ -47,7 +47,14 @@ function populateModal() {
         //  add points or subtract points, clear modal of data, close modal
     }
 }
-
+//  On click of Answer box, does these things:
+//  gets text value of answer container clicked
+//  compares to corresponding correct answer in data array
+//  adds or subtacts points from player point total
+//  closes and clears modal,
+//  clears clicked on question box of text and event listener
+//  updates qeustionsRemaining variable to keep track of how many questions are left in game
+//  when qeustionsRemaining hits zero, brings up modal to display win/lose message and score
 function answerTruthPointsClear() {
     let selectedAnswer = this.textContent;
     let correctAnswer = questionObjects[idString].correctAnswer
