@@ -39,6 +39,8 @@ function createGrid(numberOfColumns, numberOfRows, insertTarget) {
 function populateModal() {
     modalObj.style.display = 'flex';
     idString = this.getAttribute('id'); // dont use let bc i need it elsewhere, bad! but i dont know how to pass it around
+    this.textContent = '';
+    this.removeEventListener('click', populateModal);
     let questionContainer = document.getElementsByClassName('question')[0];
     let questionText = questionObjects[idString].question;
     questionContainer.textContent = questionText;
@@ -80,9 +82,9 @@ function clearhideModal() {
         answerContainer.textContent = answerText;
     }
     //  remove event listener from clicked on question box
-    currentQuestionBox = document.getElementById(idString);
-    currentQuestionBox.textContent = '';
-    currentQuestionBox.removeEventListener('click', populateModal);
+    // currentQuestionBox = document.getElementById(idString);
+    // currentQuestionBox.textContent = '';
+    // currentQuestionBox.removeEventListener('click', populateModal);
 }
 function isSelectedAnswerCorrect(selectedAnswer) {
     let correctAnswer = questionObjects[idString].correctAnswer
@@ -158,3 +160,8 @@ let questionObjects = {
     '4400': { pointValue: 400, question: 'Which Jules Verne novel was inspired by a book written by British geologist, Charles Lyell, in 1863?', answers: ['Ball Four', 'Journey to the Center of the Earth', 'Think and Grow Rich', 'The Giving Tree'], correctAnswer: 'Journey to the Center of the Earth' },
     '4500': { pointValue: 500, question: 'What was the best-selling novel of the 19th century?', answers: ['Uncle Toms Cabin', 'The Bible', 'Where is Waldo', 'Atlas Shrugged'], correctAnswer: 'Uncle Toms Cabin' }
 }
+
+
+//  idString is hoisted all over right now, but i can move the functions around so it isnt hoiseted. so the clear hide modal 
+//  function can happen inside of populate modal, the getpoint value can move inside of populate modal. no that doesnt work
+//  because then i have to return idstring out of a callback
