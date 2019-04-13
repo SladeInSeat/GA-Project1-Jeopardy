@@ -1,43 +1,37 @@
 
 //  Global Veriables
 let questionsRemaining = 25;    //  variable to track when to end game
-const categoryNames = ['Geography','History','Sports & Leisure','Entertainment','Arts & Literature'];
+const categoryNames = ['Geography', 'History', 'Sports & Leisure', 'Entertainment', 'Arts & Literature'];
 const gameContainer = document.getElementsByClassName('gameContainer')[0];
 const modalObj = document.getElementsByClassName('modalContainer')[0];
 
-function insertNewColumn(insertTarget,classValueAsString = 'noClassGiven',idValueAsString = 'noIdGiven'){
+function insertNewColumn(insertTarget, classValueAsString = 'noClassGiven', idValueAsString = 'noIdGiven') {
     let newColumn = document.createElement('div');
     newColumn.setAttribute('class', classValueAsString);
     newColumn.setAttribute('id', idValueAsString);
     insertTarget.appendChild(newColumn);
     return newColumn;
 }
-
-
 //  Build Columns and question boxes that fill out game container
-function createGrid(numberOfColumns, numberOfRows, insertTarget){
-    for(let i = 0; i < numberOfColumns; i++){
-        let newColumn = insertNewColumn(insertTarget,'categoryColumn', "column" + categoryNames[i]);
+function createGrid(numberOfColumns, numberOfRows, insertTarget) {
+    for (let i = 0; i < numberOfColumns; i++) {
+        let newColumn = insertNewColumn(insertTarget, 'categoryColumn', "column" + categoryNames[i]);
         for (let y = 0; y < numberOfRows; y++) {
             let newBox = document.createElement('div');
             newBox.setAttribute('class', 'questionBox');
             if (y == 0) {
                 newBox.textContent = categoryNames[i];
                 newColumn.appendChild(newBox);
-            } else { 
+            } else {
                 newBox.textContent = y * 100;
                 let iString = i.toString()
                 newBox.setAttribute('id', iString.concat(y * 100));
                 newColumn.appendChild(newBox);
-                newBox.addEventListener('click', populateModal) };
+                newBox.addEventListener('click', populateModal)
+            };
         }
     }
 };
-
-createGrid(5,6,gameContainer);
-
-
-
 //  Populates modal div by getting id from this. div, using id to look up data from
 //  questionObjects array, populates questions and answers with data, creates 
 //  event listeners on answer divs.
@@ -52,16 +46,16 @@ function populateModal() {
         let answerContainer = document.getElementsByClassName('answer')[i];
         let answerText = questionObjects[idString].answers[i];
         answerContainer.textContent = answerText;
-        answerContainer.addEventListener('click', answerTruthPointsClear);
+        answerContainer.addEventListener('click', answerTruthPointsClearWin);
         //  add eventlistener here? it will check if answer is correct,
         //  add points or subtract points, clear modal of data, close modal
     }
 }
-function check_display_WinCondition(){
+function check_display_WinCondition() {
 
     questionsRemaining -= 1;
 
-    if(questionsRemaining == 0){
+    if (questionsRemaining == 0) {
         modalObj.style.display = 'flex';
         let answerContainer = document.getElementsByClassName('answer')[0];
         let questionContainer = document.getElementsByClassName('question')[0];
@@ -69,15 +63,14 @@ function check_display_WinCondition(){
         answerContainer.textContent = "Your Final Score: " + currentScore;
         let winMessage = "Congrats, you win because your score is positive"
         let loseMessage = "Too bad, you lose because your score is negative"
-        if(currentScore >= 0){
+        if (currentScore >= 0) {
             questionContainer.textContent = winMessage;
-        } else{
+        } else {
             questionContainer.textContent = loseMessage;
         }
     }
 }
-
-function clearhideModal(){
+function clearhideModal() {
     modalObj.style.display = 'none';    // hide modal
     //  loop through answer boxes and remove content by setting to empty string
     document.getElementsByClassName('question')[0].textContent = ""
@@ -91,32 +84,29 @@ function clearhideModal(){
     currentQuestionBox.textContent = '';
     currentQuestionBox.removeEventListener('click', populateModal);
 }
-
-function isSelectedAnswerCorrect(selectedAnswer){
+function isSelectedAnswerCorrect(selectedAnswer) {
     let correctAnswer = questionObjects[idString].correctAnswer
     return selectedAnswer == correctAnswer;
 }
-
-function getCurrentScore(){
+function getCurrentScore() {
     let currentScoreValue = Number(document.getElementsByClassName('playerScore')[0].textContent)
     return currentScoreValue
 }
-
-function getCurrentPointValue(){
+function getCurrentPointValue() {
     let currentPointValueVar = Number(questionObjects[idString].pointValue)
     return currentPointValueVar
 }
-function addToScore(callback1,callback2){
-    let num1 = callback1()
-    let num2 = callback2()
+function addToScore(callback1, callback2) {
+    let num1 = callback1()  // wtf
+    let num2 = callback2()  // wtf
     document.getElementsByClassName('playerScore')[0].textContent = Number(num1) + Number(num2);
 }
-function subtractFromScore(callback1,callback2){
+function subtractFromScore(callback1, callback2) {
     let num1 = callback1()
     let num2 = callback2()
     document.getElementsByClassName('playerScore')[0].textContent = Number(num1) - Number(num2);
 }
-//  On click of Answer box, does these things:
+//  On click of Answer box, answerTruthPointsClearWin does these things:
 //  gets text value of answer container clicked
 //  compares to corresponding correct answer in data array
 //  adds or subtacts points from player point total
@@ -124,33 +114,20 @@ function subtractFromScore(callback1,callback2){
 //  clears clicked on question box of text and event listener
 //  updates qeustionsRemaining variable to keep track of how many questions are left in game
 //  when qeustionsRemaining hits zero, brings up modal to display win/lose message and score
-function answerTruthPointsClear() {
+function answerTruthPointsClearWin() {
     let selectedAnswer = this.textContent;
-    // let currentScore = document.getElementsByClassName('playerScore')[0].textContent
-    // let currentPointValue = Number(questionObjects[idString].pointValue)
     if (isSelectedAnswerCorrect(selectedAnswer)) {
-        addToScore(getCurrentScore,getCurrentPointValue);
-        // document.getElementsByClassName('playerScore')[0].textContent = Number(currentScore) + Number(currentPointValue);
+        addToScore(getCurrentScore, getCurrentPointValue);
         console.log('picked correctly')
     } else {
-        subtractFromScore(getCurrentScore,getCurrentPointValue);
-        // document.getElementsByClassName('playerScore')[0].textContent = Number(currentScore) - Number(currentPointValue);
+        subtractFromScore(getCurrentScore, getCurrentPointValue);
         console.log('WRONG');
     }
-    // let selectedAnswer = this.textContent;
-    // let correctAnswer = questionObjects[idString].correctAnswer
-    // let currentScore = document.getElementsByClassName('playerScore')[0].textContent
-    // let currentPointValue = Number(questionObjects[idString].pointValue)
-    // if (selectedAnswer == correctAnswer) {
-    //     document.getElementsByClassName('playerScore')[0].textContent = Number(currentScore) + Number(currentPointValue);
-    //     console.log('picked correctly')
-    // } else {
-    //     document.getElementsByClassName('playerScore')[0].textContent = Number(currentScore) - Number(currentPointValue);;
-    //     console.log('WRONG')
-    // }
     clearhideModal()
     check_display_WinCondition()
 };
+
+createGrid(5, 6, gameContainer);
 
 // data from http://www.freepubquiz.co.uk/trivial-pursuit.html
 
