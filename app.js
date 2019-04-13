@@ -12,14 +12,12 @@ function insertNewColumn(insertTarget,classValueAsString = 'noClassGiven',idValu
     insertTarget.appendChild(newColumn);
     return newColumn;
 }
+
+
 //  Build Columns and question boxes that fill out game container
 function createGrid(numberOfColumns, numberOfRows, insertTarget){
     for(let i = 0; i < numberOfColumns; i++){
         let newColumn = insertNewColumn(insertTarget,'categoryColumn', "column" + categoryNames[i]);
-        // let newColumn = document.createElement('div');
-        // newColumn.setAttribute('class', 'categoryColumn');
-        // newColumn.setAttribute('id', 'category' + i);
-        // insertTarget.appendChild(newColumn);
         for (let y = 0; y < numberOfRows; y++) {
             let newBox = document.createElement('div');
             newBox.setAttribute('class', 'questionBox');
@@ -36,26 +34,8 @@ function createGrid(numberOfColumns, numberOfRows, insertTarget){
     }
 };
 
-createGrid(5,6,gameContainer)
-// for (let i = 0; i < 5; i++) {
-//     let newColumn = document.createElement('div');
-//     newColumn.setAttribute('class', 'categoryColumn');
-//     newColumn.setAttribute('id', 'category' + i);
-//     gameContainer.appendChild(newColumn);
-//     for (let y = 0; y < 6; y++) {
-//         let newBox = document.createElement('div');
-//         newBox.setAttribute('class', 'questionBox');
-//         if (y == 0) {
-//             newBox.textContent = categoryNames[i];
-//             newColumn.appendChild(newBox);
-//         } else { 
-//             newBox.textContent = y * 100;
-//             iString = i.toString()
-//             newBox.setAttribute('id', iString.concat(y * 100));
-//             newColumn.appendChild(newBox);
-//             newBox.addEventListener('click', populateModal) };
-//     }
-// };
+createGrid(5,6,gameContainer);
+
 
 
 //  Populates modal div by getting id from this. div, using id to look up data from
@@ -66,8 +46,8 @@ function populateModal() {
     modalObj.style.display = 'flex';
     idString = this.getAttribute('id'); // dont use let bc i need it elsewhere, bad! but i dont know how to pass it around
     let questionContainer = document.getElementsByClassName('question')[0];
-    let quesitonText = questionObjects[idString].question;
-    questionContainer.textContent = quesitonText;
+    let questionText = questionObjects[idString].question;
+    questionContainer.textContent = questionText;
     for (let i = 0; i < 4; i++) {
         let answerContainer = document.getElementsByClassName('answer')[i];
         let answerText = questionObjects[idString].answers[i];
@@ -75,6 +55,25 @@ function populateModal() {
         answerContainer.addEventListener('click', answerTruthPointsClear);
         //  add eventlistener here? it will check if answer is correct,
         //  add points or subtract points, clear modal of data, close modal
+    }
+}
+function check_display_WinCondition(){
+
+    questionsRemaining -= 1;
+
+    if(questionsRemaining == 0){
+        modalObj.style.display = 'flex';
+        let answerContainer = document.getElementsByClassName('answer')[0];
+        let questionContainer = document.getElementsByClassName('question')[0];
+        let currentScore = document.getElementsByClassName('playerScore')[0].textContent
+        answerContainer.textContent = "Your Final Score: " + currentScore;
+        let winMessage = "Congrats, you win because your score is positive"
+        let loseMessage = "Too bad, you lose because your score is negative"
+        if(currentScore >= 0){
+            questionContainer.textContent = winMessage;
+        } else{
+            questionContainer.textContent = loseMessage;
+        }
     }
 }
 //  On click of Answer box, does these things:
@@ -110,22 +109,23 @@ function answerTruthPointsClear() {
     currentQuestionBox.textContent = '';
     currentQuestionBox.removeEventListener('click', populateModal);
 
-    questionsRemaining -= 1;
+    check_display_WinCondition()
+    // questionsRemaining -= 1;
     
-    if(questionsRemaining == 0){
-        modalObj.style.display = 'flex';
-        let answerContainer = document.getElementsByClassName('answer')[0];
-        let questionContainer = document.getElementsByClassName('question')[0];
-        let currentScore = document.getElementsByClassName('playerScore')[0].textContent
-        answerContainer.textContent = "Your Final Score: " + currentScore;
-        let winMessage = "Congrats, you win because your score is positive"
-        let loseMessage = "Too bad, you lose because your score is negative"
-        if(currentScore >= 0){
-            questionContainer.textContent = winMessage;
-        } else{
-            questionContainer.textContent = loseMessage;
-        }
-    }
+    // if(questionsRemaining == 0){
+    //     modalObj.style.display = 'flex';
+    //     let answerContainer = document.getElementsByClassName('answer')[0];
+    //     let questionContainer = document.getElementsByClassName('question')[0];
+    //     let currentScore = document.getElementsByClassName('playerScore')[0].textContent
+    //     answerContainer.textContent = "Your Final Score: " + currentScore;
+    //     let winMessage = "Congrats, you win because your score is positive"
+    //     let loseMessage = "Too bad, you lose because your score is negative"
+    //     if(currentScore >= 0){
+    //         questionContainer.textContent = winMessage;
+    //     } else{
+    //         questionContainer.textContent = loseMessage;
+    //     }
+    // }
 };
 
 // data from http://www.freepubquiz.co.uk/trivial-pursuit.html
