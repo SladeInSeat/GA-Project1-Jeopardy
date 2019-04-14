@@ -120,6 +120,7 @@ function answerTruthPointsClearWin() {
         this.style.backgroundColor = 'green';
         console.log('picked correctly')
     } else {
+        this.style.backgroundColor = 'red';
         subtractFromScore(getCurrentScore, getCurrentPointValue);
         for(i = 0; i < 4; i++){
             let answerContainer = document.getElementsByClassName('answer')[i];
@@ -131,7 +132,6 @@ function answerTruthPointsClearWin() {
         }
         console.log('WRONG');
     }
- 
     setTimeout(clearhideModal, 1500)
     setTimeout(check_display_WinCondition, 1500)
 };
