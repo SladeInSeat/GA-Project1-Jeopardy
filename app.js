@@ -79,9 +79,10 @@ function clearhideModal() {
         let answerContainer = document.getElementsByClassName('answer')[i];
         let answerText = "";
         answerContainer.textContent = answerText;
+        answerContainer.style.backgroundColor = 'orange';
     }
 }
-function isSelectedAnswerCorrect(selectedAnswer) {
+function isAnswerCorrect(selectedAnswer) {
     let correctAnswer = questionObjects[idString].correctAnswer
     return selectedAnswer == correctAnswer;
 }
@@ -114,15 +115,25 @@ function subtractFromScore(callback1, callback2) {
 //  when qeustionsRemaining hits zero, brings up modal to display win/lose message and score
 function answerTruthPointsClearWin() {
     let selectedAnswer = this.textContent;
-    if (isSelectedAnswerCorrect(selectedAnswer)) {
+    if (isAnswerCorrect(selectedAnswer)) {
         addToScore(getCurrentScore, getCurrentPointValue);
+        this.style.backgroundColor = 'green';
         console.log('picked correctly')
     } else {
         subtractFromScore(getCurrentScore, getCurrentPointValue);
+        for(i = 0; i < 4; i++){
+            let answerContainer = document.getElementsByClassName('answer')[i];
+            answerText = answerContainer.textContent;
+            if(isAnswerCorrect(answerText)){
+                answerContainer.style.backgroundColor = 'green'
+            }
+
+        }
         console.log('WRONG');
     }
+ 
     setTimeout(clearhideModal, 1500)
-    check_display_WinCondition()
+    setTimeout(check_display_WinCondition, 1500)
 };
 
 
