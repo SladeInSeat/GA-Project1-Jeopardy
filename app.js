@@ -1,9 +1,56 @@
 
-//  Global Veriables
-let questionsRemaining = 25;    //  tracks end of game condition
+//  Global Variables
+let questionsRemaining = 2;    //  tracks end of game condition
 const categoryNames = ['Geography', 'History', 'Sports & Leisure', 'Entertainment', 'Arts & Literature'];
 let idString = ''   //  used to identify corresponding object in questionObjects to selected question div
 let playerTurn = 0  //  tracks current active player; who gets to choose next question
+
+//  Data
+let playersData = {
+    'player1' : {
+        'id'        :   0,
+        'name'      : 'Player1',
+        'score'     :   0,
+        'isActive'  :   1
+    },
+    'player2'   : {
+        'id'        :   1,
+        'name'      : 'Player2',
+        'score'     :   0,
+        'isActive'  :   0    
+    }
+};
+
+let questionObjects = {
+    '0100': { pointValue: 100, question: 'How many hills is Sheffield said to be built on?', answers: ['Eleventeen', 'Seven', 'Zero', 'One Billion'], correctAnswer: 'Seven' },
+    '0200': { pointValue: 200, question: 'Which Australian city was established in 1835 at the lower stretches of the Yarra River', answers: ['Atlanta', 'Miami', 'Melbourne', 'Syndey'], correctAnswer: 'Melbourne' },
+    '0300': { pointValue: 300, question: 'The national flag of Cuba consists of how many alternating stripes?', answers: ['Five', 'One', 'Eleventeen', 'Googleplex'], correctAnswer: 'Five' },
+    '0400': { pointValue: 400, question: 'The Hindu Kush is a mountain range that stretches near the border of which two countries', answers: ['Texas and New Mexico', 'USA and Canada', 'Germany and Saudi Arabia', 'Afghanistan and Pakistan'], correctAnswer: 'Afghanistan and Pakistan' },
+    '0500': { pointValue: 500, question: 'Which geological period was named after the English county where rocks from this period were first studied?', answers: ['Peleo', 'Crustation', 'Klingon', 'Devonian'], correctAnswer: 'Devonian' },
+    '1100': { pointValue: 100, question: 'Which Kings defeat ended the War of the Roses?', answers: ['Richard III', 'George XXL', 'Robert Baretheon', 'Joffery'], correctAnswer: 'Richard III' },
+    '1200': { pointValue: 200, question: 'Spanish Town was the capital of which island from 1534 until 1872?', answers: ['Spain', 'Jamaica', 'Brazil', 'Berlin'], correctAnswer: 'Jamaica' },
+    '1300': { pointValue: 300, question: 'Which battle fought on 6 July 1685, took place near Bridgwater in Somerset?', answers: ['Battle of Sedgmoor', 'Battle of 5 Armies', 'Battle of Endor', 'Clegaine Bowl'], correctAnswer: 'Battle of Sedgmoor' },
+    '1400': { pointValue: 400, question: 'How is Martha Canary, who died in 1903, better known?', answers: ['Martha', 'Big Momma', 'Big Poppa', 'Calamity Jane'], correctAnswer: 'Calamity Jane' },
+    '1500': { pointValue: 500, question: 'What was the codename for the Dunkirk evacuations in 1940?', answers: ['Operation GTFO', 'Operation Run Away', 'Operation Advance Backwards', 'Operation Dynamo'], correctAnswer: 'Operation Dynamo' },
+    '2100': { pointValue: 100, question: 'What nationality was Greg Rusedski before he became a British tennis star?', answers: ['Thai', 'Columbian', 'Canadian', 'Austrialian'], correctAnswer: 'Canadian' },
+    '2200': { pointValue: 200, question: 'How many hurdles must be cleared in 110m hurdles?', answers: ['Ten', 'One Giant Hurdle', 'Eleventeen', 'Eleven'], correctAnswer: 'Ten' },
+    '2300': { pointValue: 300, question: 'The Borg-Warner Trophy, introduced in 1936, is awarded to the winner of which race?', answers: ['The Great Race', 'Indianapolis 500', 'Ititarod', '100M Dash'], correctAnswer: 'Indianapolis 500' },
+    '2400': { pointValue: 400, question: 'In 1930, which country won the first football World Cup?', answers: ['Luxemborg', 'Uruguay', 'Rhode Island', 'London'], correctAnswer: 'Uruguay' },
+    '2500': { pointValue: 500, question: 'What word links a ski lift with a round plastic disc at the end of a long pole and a former Formula One World Champion?', answers: ['Pole', 'Snow', 'Button', 'Crash'], correctAnswer: 'Button' },
+    '3100': { pointValue: 100, question: 'Who won the Eurovision Song Contest for the United Kingdom in 1997 with the song Love Shine a Light?', answers: ['Katrina and the Waves', 'The Muppets', 'Enrique Iglesias', 'Ozzy Ozbourne'], correctAnswer: 'Katrina and the Waves' },
+    '3200': { pointValue: 200, question: 'Sharon Stone was nominated for the Academy Award for Best Actress for her performance in which 1995 film?', answers: ['Basic Instinct', 'Land Before Time', 'Casino', 'Avatar'], correctAnswer: 'Casino' },
+    '3300': { pointValue: 300, question: 'Who starred as Lady Violet Crawley, Dowager Countess of Grantham in the series Downton Abbey?', answers: ['Maggie Smith', 'Sigourne Weaver', 'Samuel L Jackson', 'John Travolta'], correctAnswer: 'Maggie Smith' },
+    '3400': { pointValue: 400, question: 'In 1990, which soap actor reached number 2 in the UK Charts with the song Mona?', answers: ['George Clooney', 'Craig McLachlan', 'The Rock', 'Martin Luther King Jr'], correctAnswer: 'Craig McLachlan' },
+    '3500': { pointValue: 500, question: 'Gordon Gekko is a fictional character in which 1987 film?', answers: ['Citzen Cane', 'Lost In Translation', 'Wall Street', 'Rashomon'], correctAnswer: 'Wall Street' },
+    '4100': { pointValue: 100, question: 'The Walker Art Gallery can be visited in which city?', answers: ['London', 'Devonshire', 'The Shire', 'Liverpool'], correctAnswer: 'Liverpool' },
+    '4200': { pointValue: 200, question: 'Who is by far the most famous creation of Michael Bond?', answers: ['James Bond', 'Q', 'Austin Powers', 'Paddington Bear'], correctAnswer: 'Paddington Bear' },
+    '4300': { pointValue: 300, question: 'What title is shared by an oil painting by Johannes Vermeer and a 2003 romantic drama directed by Peter Webber?', answers: ['The Life of Peter Weber', 'Dirty Rotten Scoundrels', 'Girl With a Pearl Earring', 'Amelie'], correctAnswer: 'Girl With a Pearl Earring' },
+    '4400': { pointValue: 400, question: 'Which Jules Verne novel was inspired by a book written by British geologist, Charles Lyell, in 1863?', answers: ['Ball Four', 'Journey to the Center of the Earth', 'Think and Grow Rich', 'The Giving Tree'], correctAnswer: 'Journey to the Center of the Earth' },
+    '4500': { pointValue: 500, question: 'What was the best-selling novel of the 19th century?', answers: ['Uncle Toms Cabin', 'The Bible', 'Where is Waldo', 'Atlas Shrugged'], correctAnswer: 'Uncle Toms Cabin' }
+};
+
+//  Functions
+
 
 //  insertNewColumn: creates a new div, sets class and id values to arguements given or defaults,
 //  and then inserts div into given target. Returns the new column as well.
@@ -70,13 +117,13 @@ function check_display_WinCondition() {
         let answerContainer0 = document.getElementsByClassName('answer')[0];
         let answerContainer1 = document.getElementsByClassName('answer')[1];
         let questionContainer = document.getElementsByClassName('question')[0];
-        let player1currentScore = document.getElementsByClassName('playerScore')[0].textContent
-        let player2currentScore = document.getElementsByClassName('playerScore')[1].textContent
+        let player1currentScore = playersData['player1'].score
+        let player2currentScore = playersData['player2'].score
         answerContainer0.textContent = "Player 1 Final Score: " + player1currentScore;
         answerContainer1.textContent = "Player 2 Final Score: " + player2currentScore;
-        if (Number(player1currentScore) > Number(player2currentScore)) {
+        if (player1currentScore > player2currentScore) {
             questionContainer.textContent = "Congrats Player 1";
-        } else if(Number(player2currentScore) > Number(player1currentScore)){
+        } else if(player2currentScore > player1currentScore){
             questionContainer.textContent = "Congrats Player 2";
         } else{
             questionContainer.textContent = "It's a tie: Thunderdome to decide winnner!"
@@ -107,44 +154,62 @@ function isAnswerCorrect(selectedAnswer) {
 }
 
 //  getPlayerTurn: returns the global variable playerTurn.
-function getPlayerTurn(){
-    return playerTurn;
+// function getPlayerTurn(){
+function getActivePlayerKey(){
+    let activePlayerKey = undefined;
+    if(playersData.player1.isActive == 1 && playersData.player2.isActive == 0){
+        activePlayerKey = 'player1';
+    }else{
+        activePlayerKey = 'player2';
+    }
+    return activePlayerKey;
 }
+// function getPlayerTurn(){
+//     return playerTurn;
+// }
+
 
 //  setPlayerTurn: modifies the global variable playerTurn to given number.
 //  Makes sure input number is 0 or 1
-function setPlayerTurn(number){
-    if(number === 0 || number === 1){
-        playerTurn = number;
-    }
-}
+// function setPlayerTurn(number){
+//     if(number === 0 || number === 1){
+//         playerTurn = number;
+//     }
+// }
 
 //  indicateCurrentPlayerTurn: Changes .playerStatus backgrounds to indicate
 //  current player turn
-function indicateCurrentPlayerTurn(){
-    let currentPlayer = getPlayerTurn()
-    let playerBox = document.getElementsByClassName('playerStatus')[currentPlayer]
+function indicateActivePlayerTurn(){
+    // let currentPlayer = getPlayerTurn()
+    let currentPlayerKey = getActivePlayerKey()
+    let currentPlayerIndex = playersData[currentPlayerKey].id
+    let playerBox = document.getElementsByClassName('playerStatus')[currentPlayerIndex]
     playerBox.style.backgroundColor = '#FFE466';
-    let otherPlayer = currentPlayer*-1 + 1
-    let otherPlayerBox = document.getElementsByClassName('playerStatus')[otherPlayer]
+    let otherPlayerIndex = currentPlayerIndex*-1 + 1
+    let otherPlayerBox = document.getElementsByClassName('playerStatus')[otherPlayerIndex]
     otherPlayerBox.style.backgroundColor = '#060CE9'
 }
 
 //  switchPlayerTurn: modifies global variable playerTurn to indicate current
 //  active player
 function switchPlayerTurn(){
-    let currentPlayer = getPlayerTurn()
-    let newCurrentPlayer = currentPlayer*-1 + 1
-    setPlayerTurn(newCurrentPlayer);
-
+    playersData["player1"].isActive = playersData["player1"].isActive*-1 + 1
+    playersData["player2"].isActive = playersData["player2"].isActive*-1 + 1
 }
+// function switchPlayerTurn(){
+//     let currentPlayer = getPlayerTurn()
+//     let newCurrentPlayer = currentPlayer*-1 + 1
+//     setPlayerTurn(newCurrentPlayer);
 
+// }
 //  getCurrentScore: Gets current player to know which player score to get, then returns
 //  text content of appropriate playerScore div. Player score will eventually be moved
 //  to an object instaed of in the DOM.
 function getCurrentScore() {
-    let player = getPlayerTurn();
-    let currentScoreValue = Number(document.getElementsByClassName('playerScore')[player].textContent)
+    let activePlayerKey = getActivePlayerKey();
+    // let player = getPlayerTurn();
+    let currentScoreValue = playersData[activePlayerKey].score
+    // let currentScoreValue = Number(document.getElementsByClassName('playerScore')[activePlayerIndex].textContent)
     return currentScoreValue
 }
 
@@ -159,20 +224,28 @@ function getCurrentPointValue() {
 //  sets current players playerScore div their sum. Callback functions 
 //  will be getCurrentScore and getCurrentPointValue.
 function addToScore(callback1, callback2) {
-    let player = getPlayerTurn();
+    let activePlayerKey = getActivePlayerKey();
+    let activePlayerIndex = playersData[activePlayerKey].id
+    // let player = getPlayerTurn();
     let num1 = callback1()  // wtf
     let num2 = callback2()  // wtf
-    document.getElementsByClassName('playerScore')[player].textContent = Number(num1) + Number(num2);
+    let newScore = Number(num1) + Number(num2)
+    playersData[activePlayerKey].score = newScore;
+    document.getElementsByClassName('playerScore')[activePlayerIndex].textContent = playersData[activePlayerKey].score;
 }
 
 //  subtractFromScore: saves output of two callback functions and 
 //  sets current players playerScore div their difference. Callback functions 
 //  will be getCurrentScore and getCurrentPointValue.
 function subtractFromScore(callback1, callback2) {
-    let player = getPlayerTurn();
+    let activePlayerKey = getActivePlayerKey();
+    let activePlayerIndex = playersData[activePlayerKey].id
+    // let player = getPlayerTurn();
     let num1 = callback1()
     let num2 = callback2()
-    document.getElementsByClassName('playerScore')[player].textContent = Number(num1) - Number(num2);
+    let newScore = Number(num1) - Number(num2)
+    playersData[activePlayerKey].score = newScore;
+    document.getElementsByClassName('playerScore')[activePlayerIndex].textContent = playersData[activePlayerKey].score;
 }
 
 //  On click of Answer box, answerTruthPointsClearWin does these things:
@@ -193,7 +266,7 @@ function answerTruthPointsClearWin() {
         this.style.backgroundColor = 'red';
         subtractFromScore(getCurrentScore, getCurrentPointValue);
         switchPlayerTurn()
-        indicateCurrentPlayerTurn()
+        indicateActivePlayerTurn()
         for(i = 0; i < 4; i++){ //  finds correct answer in div, changes background to green
             let answerContainer = document.getElementsByClassName('answer')[i];
             let answerText = answerContainer.textContent;
@@ -208,49 +281,10 @@ function answerTruthPointsClearWin() {
 };
 
 //  Start game on page load
+
 createGrid(5, 6, document.getElementsByClassName('gameContainer')[0]);
-indicateCurrentPlayerTurn()
+indicateActivePlayerTurn()
 
 // data from http://www.freepubquiz.co.uk/trivial-pursuit.html
 
 
-let playersData = {
-    'player1' : {
-        'name'  : 'Player1',
-        'score' :   0,
-        'isActive': 1
-    },
-    'player2'   : {
-        'name'      : 'Player2',
-        'score'     :   0,
-        'isActive'  :   0    
-    }
-}
-
-let questionObjects = {
-    '0100': { pointValue: 100, question: 'How many hills is Sheffield said to be built on?', answers: ['Eleventeen', 'Seven', 'Zero', 'One Billion'], correctAnswer: 'Seven' },
-    '0200': { pointValue: 200, question: 'Which Australian city was established in 1835 at the lower stretches of the Yarra River', answers: ['Atlanta', 'Miami', 'Melbourne', 'Syndey'], correctAnswer: 'Melbourne' },
-    '0300': { pointValue: 300, question: 'The national flag of Cuba consists of how many alternating stripes?', answers: ['Five', 'One', 'Eleventeen', 'Googleplex'], correctAnswer: 'Five' },
-    '0400': { pointValue: 400, question: 'The Hindu Kush is a mountain range that stretches near the border of which two countries', answers: ['Texas and New Mexico', 'USA and Canada', 'Germany and Saudi Arabia', 'Afghanistan and Pakistan'], correctAnswer: 'Afghanistan and Pakistan' },
-    '0500': { pointValue: 500, question: 'Which geological period was named after the English county where rocks from this period were first studied?', answers: ['Peleo', 'Crustation', 'Klingon', 'Devonian'], correctAnswer: 'Devonian' },
-    '1100': { pointValue: 100, question: 'Which Kings defeat ended the War of the Roses?', answers: ['Richard III', 'George XXL', 'Robert Baretheon', 'Joffery'], correctAnswer: 'Richard III' },
-    '1200': { pointValue: 200, question: 'Spanish Town was the capital of which island from 1534 until 1872?', answers: ['Spain', 'Jamaica', 'Brazil', 'Berlin'], correctAnswer: 'Jamaica' },
-    '1300': { pointValue: 300, question: 'Which battle fought on 6 July 1685, took place near Bridgwater in Somerset?', answers: ['Battle of Sedgmoor', 'Battle of 5 Armies', 'Battle of Endor', 'Clegaine Bowl'], correctAnswer: 'Battle of Sedgmoor' },
-    '1400': { pointValue: 400, question: 'How is Martha Canary, who died in 1903, better known?', answers: ['Martha', 'Big Momma', 'Big Poppa', 'Calamity Jane'], correctAnswer: 'Calamity Jane' },
-    '1500': { pointValue: 500, question: 'What was the codename for the Dunkirk evacuations in 1940?', answers: ['Operation GTFO', 'Operation Run Away', 'Operation Advance Backwards', 'Operation Dynamo'], correctAnswer: 'Operation Dynamo' },
-    '2100': { pointValue: 100, question: 'What nationality was Greg Rusedski before he became a British tennis star?', answers: ['Thai', 'Columbian', 'Canadian', 'Austrialian'], correctAnswer: 'Canadian' },
-    '2200': { pointValue: 200, question: 'How many hurdles must be cleared in 110m hurdles?', answers: ['Ten', 'One Giant Hurdle', 'Eleventeen', 'Eleven'], correctAnswer: 'Ten' },
-    '2300': { pointValue: 300, question: 'The Borg-Warner Trophy, introduced in 1936, is awarded to the winner of which race?', answers: ['The Great Race', 'Indianapolis 500', 'Ititarod', '100M Dash'], correctAnswer: 'Indianapolis 500' },
-    '2400': { pointValue: 400, question: 'In 1930, which country won the first football World Cup?', answers: ['Luxemborg', 'Uruguay', 'Rhode Island', 'London'], correctAnswer: 'Uruguay' },
-    '2500': { pointValue: 500, question: 'What word links a ski lift with a round plastic disc at the end of a long pole and a former Formula One World Champion?', answers: ['Pole', 'Snow', 'Button', 'Crash'], correctAnswer: 'Button' },
-    '3100': { pointValue: 100, question: 'Who won the Eurovision Song Contest for the United Kingdom in 1997 with the song Love Shine a Light?', answers: ['Katrina and the Waves', 'The Muppets', 'Enrique Iglesias', 'Ozzy Ozbourne'], correctAnswer: 'Katrina and the Waves' },
-    '3200': { pointValue: 200, question: 'Sharon Stone was nominated for the Academy Award for Best Actress for her performance in which 1995 film?', answers: ['Basic Instinct', 'Land Before Time', 'Casino', 'Avatar'], correctAnswer: 'Casino' },
-    '3300': { pointValue: 300, question: 'Who starred as Lady Violet Crawley, Dowager Countess of Grantham in the series Downton Abbey?', answers: ['Maggie Smith', 'Sigourne Weaver', 'Samuel L Jackson', 'John Travolta'], correctAnswer: 'Maggie Smith' },
-    '3400': { pointValue: 400, question: 'In 1990, which soap actor reached number 2 in the UK Charts with the song Mona?', answers: ['George Clooney', 'Craig McLachlan', 'The Rock', 'Martin Luther King Jr'], correctAnswer: 'Craig McLachlan' },
-    '3500': { pointValue: 500, question: 'Gordon Gekko is a fictional character in which 1987 film?', answers: ['Citzen Cane', 'Lost In Translation', 'Wall Street', 'Rashomon'], correctAnswer: 'Wall Street' },
-    '4100': { pointValue: 100, question: 'The Walker Art Gallery can be visited in which city?', answers: ['London', 'Devonshire', 'The Shire', 'Liverpool'], correctAnswer: 'Liverpool' },
-    '4200': { pointValue: 200, question: 'Who is by far the most famous creation of Michael Bond?', answers: ['James Bond', 'Q', 'Austin Powers', 'Paddington Bear'], correctAnswer: 'Paddington Bear' },
-    '4300': { pointValue: 300, question: 'What title is shared by an oil painting by Johannes Vermeer and a 2003 romantic drama directed by Peter Webber?', answers: ['The Life of Peter Weber', 'Dirty Rotten Scoundrels', 'Girl With a Pearl Earring', 'Amelie'], correctAnswer: 'Girl With a Pearl Earring' },
-    '4400': { pointValue: 400, question: 'Which Jules Verne novel was inspired by a book written by British geologist, Charles Lyell, in 1863?', answers: ['Ball Four', 'Journey to the Center of the Earth', 'Think and Grow Rich', 'The Giving Tree'], correctAnswer: 'Journey to the Center of the Earth' },
-    '4500': { pointValue: 500, question: 'What was the best-selling novel of the 19th century?', answers: ['Uncle Toms Cabin', 'The Bible', 'Where is Waldo', 'Atlas Shrugged'], correctAnswer: 'Uncle Toms Cabin' }
-}
