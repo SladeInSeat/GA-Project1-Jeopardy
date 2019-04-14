@@ -150,6 +150,7 @@ body{
     height: 30vh;
     width: 50vw;
     font-size: 1.5em;
+    margin: 5px 0px;
 
 
 }
@@ -160,7 +161,7 @@ body{
     justify-content: flex-start;
     align-items: center;
     background: #060CE9;
-    height: 10vh;
+    height: 8vh;
     width: 40vw;
     font-size: 1em;
 
