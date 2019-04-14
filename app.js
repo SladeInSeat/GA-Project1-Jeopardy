@@ -98,9 +98,9 @@ function clearhideModal() {
     }
 }
 
-//  isAnswerCorrect: truth check between input (selectedAnswer), and correct answer. Correct
-//  answer is found by using global variable idString to access correctAnswer value of corresponding
-//  data obect. Returns boolean.
+//  isAnswerCorrect: truth check between arguement (selectedAnswer), and
+//  correctAnswer value of questionsObject corresponding to global variable idString.
+//  Returns boolean.
 function isAnswerCorrect(selectedAnswer) {
     let correctAnswer = questionObjects[idString].correctAnswer
     return selectedAnswer == correctAnswer;
@@ -119,7 +119,7 @@ function setPlayerTurn(number){
     }
 }
 
-//  indicateCurrentPlayerTurn: Changes playerStatus backgrounds to indicate
+//  indicateCurrentPlayerTurn: Changes .playerStatus backgrounds to indicate
 //  current player turn
 function indicateCurrentPlayerTurn(){
     let currentPlayer = getPlayerTurn()
@@ -128,7 +128,6 @@ function indicateCurrentPlayerTurn(){
     let otherPlayer = currentPlayer*-1 + 1
     let otherPlayerBox = document.getElementsByClassName('playerStatus')[otherPlayer]
     otherPlayerBox.style.backgroundColor = '#060CE9'
-
 }
 
 //  switchPlayerTurn: modifies global variable playerTurn to indicate current
@@ -195,7 +194,7 @@ function answerTruthPointsClearWin() {
         subtractFromScore(getCurrentScore, getCurrentPointValue);
         switchPlayerTurn()
         indicateCurrentPlayerTurn()
-        for(i = 0; i < 4; i++){
+        for(i = 0; i < 4; i++){ //  finds correct answer in div, changes background to green
             let answerContainer = document.getElementsByClassName('answer')[i];
             let answerText = answerContainer.textContent;
             if(isAnswerCorrect(answerText)){
@@ -208,11 +207,25 @@ function answerTruthPointsClearWin() {
     setTimeout(check_display_WinCondition, 1500)
 };
 
-
+//  Start game on page load
 createGrid(5, 6, document.getElementsByClassName('gameContainer')[0]);
 indicateCurrentPlayerTurn()
 
 // data from http://www.freepubquiz.co.uk/trivial-pursuit.html
+
+
+let playersData = {
+    'player1' : {
+        'name'  : 'Player1',
+        'score' :   0,
+        'isActive': 1
+    },
+    'player2'   : {
+        'name'      : 'Player2',
+        'score'     :   0,
+        'isActive'  :   0    
+    }
+}
 
 let questionObjects = {
     '0100': { pointValue: 100, question: 'How many hills is Sheffield said to be built on?', answers: ['Eleventeen', 'Seven', 'Zero', 'One Billion'], correctAnswer: 'Seven' },
