@@ -4,15 +4,20 @@ body{
     flex-wrap: nowrap;
     justify-content: space-evenly;
     align-content: center;
-    background: green;
+    background: #060CE9;
+    font-family: Impact, sans-serif;
 }
 
 .title{
     display: flex;
     justify-content: center;
     align-items: center;
-    background: yellow;
+    background: #060CE9;
     height: 8vh;
+    font-family: Impact, sans-serif;
+    font-size: 3em;
+    color: floralwhite;
+    text-shadow: 4px 4px black;
 }
 
 .gameContainer{
@@ -21,7 +26,7 @@ body{
     flex-wrap: wrap;
     justify-content: center;
     align-content: center;
-    background: blue;
+    background: #060CE9;
     height: 75vh;
 
 }
@@ -34,27 +39,35 @@ body{
     height: 70vh;
     width: 12vw;
     margin: 5px 5px;
-    background: orange;
+    background: #060CE9;
 }
 .questionBox{
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     height: 9vh;
     width: 10vw;
     align-items: center;
     border: 5px solid black;
     color: blanchedalmond;
-    background: blue;
+    background: #060CE9;
+    font-weight: bold;
+    text-shadow: 2px 2px black;
 }
 
 .gameStatus{
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    flex-basis: 0;
     justify-content: space-around;
     align-items: center;
-    background: orange;
+    background: #060CE9;
     height: 20vh;
+    font-size: 2em;
+    color: blanchedalmond;
+    text-shadow: 2px 2px black;
+
 }
 
 .playerStatus{
@@ -66,7 +79,8 @@ body{
     align-content: center;
     height: 10vh;
     width: 16vw;
-    background: blue;
+    background: #060CE9;
+    border: 2px solid black;
 }
 
 .playerName{
@@ -74,7 +88,7 @@ body{
     justify-content: center;
     align-items: center;
     padding: 5px;
-    background: plum;
+    background: #060CE9;
     height: 5vh;
     widows: 8vw;
 
@@ -85,7 +99,7 @@ body{
     justify-content: center;
     align-items: center;
     padding: 5px;
-    background: red;
+    background: #060CE9;
     height: 5vh;
 }
 
@@ -102,7 +116,11 @@ body{
     z-index: 1; 
     width: 100vw;
     height: 100vh;
-    background-color: rgb(0,0,255);
+    background-color:#060CE9;
+    font-family: Impact, sans-serif;
+    font-size: 2em;
+    color: blanchedalmond;
+    text-shadow: 2px 2px black;
     
 }
 
@@ -118,7 +136,7 @@ body{
     flex-basis: 0;
     height: 70vh;
     width: 70vw;
-    background: rgba(0, 0, 250,1);
+    background:#060CE9;
     border: 10px solid black;
 
 }
@@ -128,10 +146,10 @@ body{
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background: green;
+    background: #060CE9;
     height: 30vh;
     width: 50vw;
-    font-size: 2em;
+    font-size: 1.5em;
 
 
 }
@@ -141,10 +159,10 @@ body{
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    background: orange;
+    background: #060CE9;
     height: 10vh;
     width: 40vw;
-    font-size: 2em;
+    font-size: 1em;
 
 
 }

@@ -79,7 +79,7 @@ function clearhideModal() {
         let answerContainer = document.getElementsByClassName('answer')[i];
         let answerText = "";
         answerContainer.textContent = answerText;
-        answerContainer.style.backgroundColor = 'orange';
+        answerContainer.style.backgroundColor = '#060CE9';
     }
 }
 function isAnswerCorrect(selectedAnswer) {
@@ -99,7 +99,6 @@ function addToScore(callback1, callback2) {
     let num2 = callback2()  // wtf
     document.getElementsByClassName('playerScore')[0].textContent = Number(num1) + Number(num2);
 }
-
 function subtractFromScore(callback1, callback2) {
     let num1 = callback1()
     let num2 = callback2()
@@ -128,7 +127,6 @@ function answerTruthPointsClearWin() {
             if(isAnswerCorrect(answerText)){
                 answerContainer.style.backgroundColor = 'green'
             }
-
         }
         console.log('WRONG');
     }
