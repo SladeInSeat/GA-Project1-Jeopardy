@@ -5,6 +5,7 @@ const categoryNames = ['Geography', 'History', 'Sports & Leisure', 'Entertainmen
 let idString = ''
 let playerTurn = 0
 
+
 function insertNewColumn(insertTarget, classValueAsString = 'noClassGiven', idValueAsString = 'noIdGiven') {
     let newColumn = document.createElement('div');
     newColumn.setAttribute('class', classValueAsString);
@@ -90,12 +91,23 @@ function isAnswerCorrect(selectedAnswer) {
 function getPlayerTurn(){
     return playerTurn;
 }
+function setPlayerTurn(number){
+    playerTurn = number;
+}
+function indicateCurrentPlayerTurn(){
+    let currentPlayer = getPlayerTurn()
+    let playerBox = document.getElementsByClassName('playerStatus')[currentPlayer]
+    playerBox.style.backgroundColor = '#FFE466';
+    let otherPlayer = currentPlayer*-1 + 1
+    let otherPlayerBox = document.getElementsByClassName('playerStatus')[otherPlayer]
+    otherPlayerBox.style.backgroundColor = '#060CE9'
+
+}
 function switchPlayerTurn(){
-    if(playerTurn == 0){
-        playerTurn++
-    }else if(playerTurn == 1){
-        playerTurn--
-    }else(playerTurn = 0);
+    let currentPlayer = getPlayerTurn()
+    letnewCurrentPlayer = currentPlayer*-1 + 1
+    setPlayerTurn(newCurrentPlayer);
+
 }
 function getCurrentScore() {
     let player = getPlayerTurn();
@@ -136,6 +148,7 @@ function answerTruthPointsClearWin() {
         this.style.backgroundColor = 'red';
         subtractFromScore(getCurrentScore, getCurrentPointValue);
         switchPlayerTurn()
+        indicateCurrentPlayerTurn()
         for(i = 0; i < 4; i++){
             let answerContainer = document.getElementsByClassName('answer')[i];
             answerText = answerContainer.textContent;
@@ -151,6 +164,7 @@ function answerTruthPointsClearWin() {
 
 
 createGrid(5, 6, document.getElementsByClassName('gameContainer')[0]);
+indicateCurrentPlayerTurn()
 
 // data from http://www.freepubquiz.co.uk/trivial-pursuit.html
 
