@@ -1,6 +1,6 @@
 
 //  Global Veriables
-let questionsRemaining = 25;    //  variable to track when to end game
+let questionsRemaining = 4;    //  variable to track when to end game
 const categoryNames = ['Geography', 'History', 'Sports & Leisure', 'Entertainment', 'Arts & Literature'];
 let idString = ''
 let playerTurn = 0
@@ -60,16 +60,19 @@ function check_display_WinCondition() {
 
     if (questionsRemaining == 0) {
         document.getElementsByClassName('modalContainer')[0].style.display = 'flex';
-        let answerContainer = document.getElementsByClassName('answer')[0];
+        let answerContainer0 = document.getElementsByClassName('answer')[0];
+        let answerContainer1 = document.getElementsByClassName('answer')[1];
         let questionContainer = document.getElementsByClassName('question')[0];
-        let currentScore = document.getElementsByClassName('playerScore')[0].textContent
-        answerContainer.textContent = "Your Final Score: " + currentScore;
-        let winMessage = "Congrats, you win because your score is positive"
-        let loseMessage = "Too bad, you lose because your score is negative"
-        if (currentScore >= 0) {
-            questionContainer.textContent = winMessage;
-        } else {
-            questionContainer.textContent = loseMessage;
+        let player1currentScore = document.getElementsByClassName('playerScore')[0].textContent
+        let player2currentScore = document.getElementsByClassName('playerScore')[1].textContent
+        answerContainer0.textContent = "Player 1 Final Score: " + player1currentScore;
+        answerContainer1.textContent = "Player 2 Final Score: " + player2currentScore;
+        if (player1currentScore > player2currentScore) {
+            questionContainer.textContent = "Congrats Player 1";
+        } else if(player2currentScore > player1currentScore){
+            questionContainer.textContent = "Congrats Player 2";
+        } else{
+            questionContainer.textContent = "It's a tie: Thunderdome to decide winnner!"
         }
     }
 }
@@ -105,7 +108,7 @@ function indicateCurrentPlayerTurn(){
 }
 function switchPlayerTurn(){
     let currentPlayer = getPlayerTurn()
-    letnewCurrentPlayer = currentPlayer*-1 + 1
+    let newCurrentPlayer = currentPlayer*-1 + 1
     setPlayerTurn(newCurrentPlayer);
 
 }
@@ -151,7 +154,7 @@ function answerTruthPointsClearWin() {
         indicateCurrentPlayerTurn()
         for(i = 0; i < 4; i++){
             let answerContainer = document.getElementsByClassName('answer')[i];
-            answerText = answerContainer.textContent;
+            let answerText = answerContainer.textContent;
             if(isAnswerCorrect(answerText)){
                 answerContainer.style.backgroundColor = 'green'
             }
