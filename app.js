@@ -1,6 +1,6 @@
 
 //  Global Veriables
-let questionsRemaining = 4;    //  variable to track when to end game
+let questionsRemaining = 25;    //  variable to track when to end game
 const categoryNames = ['Geography', 'History', 'Sports & Leisure', 'Entertainment', 'Arts & Literature'];
 let idString = ''
 let playerTurn = 0
@@ -67,9 +67,9 @@ function check_display_WinCondition() {
         let player2currentScore = document.getElementsByClassName('playerScore')[1].textContent
         answerContainer0.textContent = "Player 1 Final Score: " + player1currentScore;
         answerContainer1.textContent = "Player 2 Final Score: " + player2currentScore;
-        if (player1currentScore > player2currentScore) {
+        if (Number(player1currentScore) > Number(player2currentScore)) {
             questionContainer.textContent = "Congrats Player 1";
-        } else if(player2currentScore > player1currentScore){
+        } else if(Number(player2currentScore) > Number(player1currentScore)){
             questionContainer.textContent = "Congrats Player 2";
         } else{
             questionContainer.textContent = "It's a tie: Thunderdome to decide winnner!"
