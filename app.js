@@ -3,6 +3,7 @@
 let questionsRemaining = 25;    //  variable to track when to end game
 const categoryNames = ['Geography', 'History', 'Sports & Leisure', 'Entertainment', 'Arts & Literature'];
 let idString = ''
+let playerTurn = 0
 
 function insertNewColumn(insertTarget, classValueAsString = 'noClassGiven', idValueAsString = 'noIdGiven') {
     let newColumn = document.createElement('div');
@@ -86,8 +87,19 @@ function isAnswerCorrect(selectedAnswer) {
     let correctAnswer = questionObjects[idString].correctAnswer
     return selectedAnswer == correctAnswer;
 }
+function getPlayerTurn(){
+    return playerTurn;
+}
+function switchPlayerTurn(){
+    if(playerTurn == 0){
+        playerTurn++
+    }else if(playerTurn == 1){
+        playerTurn--
+    }else(playerTurn = 0);
+}
 function getCurrentScore() {
-    let currentScoreValue = Number(document.getElementsByClassName('playerScore')[0].textContent)
+    let player = getPlayerTurn();
+    let currentScoreValue = Number(document.getElementsByClassName('playerScore')[player].textContent)
     return currentScoreValue
 }
 function getCurrentPointValue() {
@@ -95,14 +107,16 @@ function getCurrentPointValue() {
     return currentPointValueVar
 }
 function addToScore(callback1, callback2) {
+    let player = getPlayerTurn();
     let num1 = callback1()  // wtf
     let num2 = callback2()  // wtf
-    document.getElementsByClassName('playerScore')[0].textContent = Number(num1) + Number(num2);
+    document.getElementsByClassName('playerScore')[player].textContent = Number(num1) + Number(num2);
 }
 function subtractFromScore(callback1, callback2) {
+    let player = getPlayerTurn();
     let num1 = callback1()
     let num2 = callback2()
-    document.getElementsByClassName('playerScore')[0].textContent = Number(num1) - Number(num2);
+    document.getElementsByClassName('playerScore')[player].textContent = Number(num1) - Number(num2);
 }
 //  On click of Answer box, answerTruthPointsClearWin does these things:
 //  gets text value of answer container clicked
@@ -121,6 +135,7 @@ function answerTruthPointsClearWin() {
     } else {
         this.style.backgroundColor = 'red';
         subtractFromScore(getCurrentScore, getCurrentPointValue);
+        switchPlayerTurn()
         for(i = 0; i < 4; i++){
             let answerContainer = document.getElementsByClassName('answer')[i];
             answerText = answerContainer.textContent;
