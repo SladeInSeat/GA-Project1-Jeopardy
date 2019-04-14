@@ -121,9 +121,10 @@ function answerTruthPointsClearWin() {
         subtractFromScore(getCurrentScore, getCurrentPointValue);
         console.log('WRONG');
     }
-    clearhideModal()
+    setTimeout(clearhideModal, 1500)
     check_display_WinCondition()
 };
+
 
 createGrid(5, 6, document.getElementsByClassName('gameContainer')[0]);
 
