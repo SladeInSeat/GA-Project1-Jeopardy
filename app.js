@@ -1,9 +1,8 @@
 
 //  Global Variables
-let questionsRemaining = 2;    //  tracks end of game condition
+let questionsRemaining = 25;    //  tracks end of game condition
 const categoryNames = ['Geography', 'History', 'Sports & Leisure', 'Entertainment', 'Arts & Literature'];
 let idString = ''   //  used to identify corresponding object in questionObjects to selected question div
-let playerTurn = 0  //  tracks current active player; who gets to choose next question
 
 //  Data
 let playersData = {
@@ -53,7 +52,7 @@ let questionObjects = {
 
 
 //  insertNewColumn: creates a new div, sets class and id values to arguements given or defaults,
-//  and then inserts div into given target. Returns the new column as well.
+//  and then inserts div into given target. Returns the new column as well for passing.
 function insertNewColumn(insertTarget, classValueAsString = 'noClassGiven', idValueAsString = 'noIdGiven') {
     let newColumn = document.createElement('div');
     newColumn.setAttribute('class', classValueAsString);
@@ -85,12 +84,19 @@ function createGrid(numberOfColumns, numberOfRows, insertTarget) {
     }
 };
 
+//  setidString: sets the global variable idString to value. Only used in populateModal;
+function setidString(value){
+    idString = value;
+};
+
 //  populateModal: Populates modal div by getting id from this. div, using id to look up data from
 //  questionObjects array, populates questions and answers with data, creates 
 //  event listeners on answer divs. It sets the global varialbe, idString to this.id.
+//  Is an EventListener on questionBoxes
 function populateModal() {
     document.getElementsByClassName('modalContainer')[0].style.display = 'flex';
-    idString = this.getAttribute('id'); 
+    setidString(this.getAttribute('id'));
+    // idString = this.getAttribute('id'); 
     this.textContent = '';
     this.removeEventListener('click', populateModal);
     let questionContainer = document.getElementsByClassName('question')[0];
@@ -102,7 +108,7 @@ function populateModal() {
         answerContainer.textContent = answerText;
         answerContainer.addEventListener('click', answerTruthPointsClearWin);
     }
-}
+};
 
 //  check_display_WinCondition: decrements the global variable questionsRemaining. Checks if
 //  questionsRemaining equals 0, which indicates end of game.
@@ -129,7 +135,7 @@ function check_display_WinCondition() {
             questionContainer.textContent = "It's a tie: Thunderdome to decide winnner!"
         }
     }
-}
+};
 
 //  clearhideModal: Hides the modal, sets question div and answer divs to display an empty
 //  string. Sets background to jeopardy blue of answer divs to undo correct and incorrect
@@ -143,7 +149,7 @@ function clearhideModal() {
         answerContainer.textContent = answerText;
         answerContainer.style.backgroundColor = '#060CE9';
     }
-}
+};
 
 //  isAnswerCorrect: truth check between arguement (selectedAnswer), and
 //  correctAnswer value of questionsObject corresponding to global variable idString.
@@ -151,7 +157,7 @@ function clearhideModal() {
 function isAnswerCorrect(selectedAnswer) {
     let correctAnswer = questionObjects[idString].correctAnswer
     return selectedAnswer == correctAnswer;
-}
+};
 
 //  getPlayerTurn: returns the global variable playerTurn.
 // function getPlayerTurn(){
@@ -163,87 +169,65 @@ function getActivePlayerKey(){
         activePlayerKey = 'player2';
     }
     return activePlayerKey;
-}
-// function getPlayerTurn(){
-//     return playerTurn;
-// }
-
-
-//  setPlayerTurn: modifies the global variable playerTurn to given number.
-//  Makes sure input number is 0 or 1
-// function setPlayerTurn(number){
-//     if(number === 0 || number === 1){
-//         playerTurn = number;
-//     }
-// }
+};
 
 //  indicateCurrentPlayerTurn: Changes .playerStatus backgrounds to indicate
 //  current player turn
 function indicateActivePlayerTurn(){
-    // let currentPlayer = getPlayerTurn()
-    let currentPlayerKey = getActivePlayerKey()
-    let currentPlayerIndex = playersData[currentPlayerKey].id
-    let playerBox = document.getElementsByClassName('playerStatus')[currentPlayerIndex]
+    let activePlayerKey = getActivePlayerKey()
+    let activePlayerIndex = playersData[activePlayerKey].id
+    let playerBox = document.getElementsByClassName('playerStatus')[activePlayerIndex]
     playerBox.style.backgroundColor = '#FFE466';
-    let otherPlayerIndex = currentPlayerIndex*-1 + 1
+    let otherPlayerIndex = activePlayerIndex*-1 + 1
     let otherPlayerBox = document.getElementsByClassName('playerStatus')[otherPlayerIndex]
     otherPlayerBox.style.backgroundColor = '#060CE9'
-}
+};
 
 //  switchPlayerTurn: modifies global variable playerTurn to indicate current
 //  active player
 function switchPlayerTurn(){
     playersData["player1"].isActive = playersData["player1"].isActive*-1 + 1
     playersData["player2"].isActive = playersData["player2"].isActive*-1 + 1
-}
-// function switchPlayerTurn(){
-//     let currentPlayer = getPlayerTurn()
-//     let newCurrentPlayer = currentPlayer*-1 + 1
-//     setPlayerTurn(newCurrentPlayer);
+};
 
-// }
 //  getCurrentScore: Gets current player to know which player score to get, then returns
 //  text content of appropriate playerScore div. Player score will eventually be moved
 //  to an object instaed of in the DOM.
 function getCurrentScore() {
     let activePlayerKey = getActivePlayerKey();
-    // let player = getPlayerTurn();
     let currentScoreValue = playersData[activePlayerKey].score
-    // let currentScoreValue = Number(document.getElementsByClassName('playerScore')[activePlayerIndex].textContent)
     return currentScoreValue
-}
+};
 
 //  getCurrentPointValue: uses global variable idString to return 
 //  pointValue out of corresponding object in questionObjects.
 function getCurrentPointValue() {
-    let currentPointValueVar = Number(questionObjects[idString].pointValue)
+    let currentPointValueVar = questionObjects[idString].pointValue
     return currentPointValueVar
-}
+};
 
 //  addToScore: saves output of two callback functions and 
-//  sets current players playerScore div their sum. Callback functions 
-//  will be getCurrentScore and getCurrentPointValue.
+//  sets current players playerScore div and players score to their sum. Callback functions 
+//  will be getCurrentScore and getCurrentPointValue. Also wtf.
 function addToScore(callback1, callback2) {
     let activePlayerKey = getActivePlayerKey();
     let activePlayerIndex = playersData[activePlayerKey].id
-    // let player = getPlayerTurn();
     let num1 = callback1()  // wtf
     let num2 = callback2()  // wtf
-    let newScore = Number(num1) + Number(num2)
+    let newScore = num1 + num2
     playersData[activePlayerKey].score = newScore;
     document.getElementsByClassName('playerScore')[activePlayerIndex].textContent = playersData[activePlayerKey].score;
 }
 
 //  subtractFromScore: saves output of two callback functions and 
-//  sets current players playerScore div their difference. Callback functions 
+//  sets current players playerScore div and players score to their difference. Callback functions 
 //  will be getCurrentScore and getCurrentPointValue.
 function subtractFromScore(callback1, callback2) {
     let activePlayerKey = getActivePlayerKey();
     let activePlayerIndex = playersData[activePlayerKey].id
-    // let player = getPlayerTurn();
     let num1 = callback1()
     let num2 = callback2()
-    let newScore = Number(num1) - Number(num2)
+    let newScore = num1 - num2
     playersData[activePlayerKey].score = newScore;
     document.getElementsByClassName('playerScore')[activePlayerIndex].textContent = playersData[activePlayerKey].score;
 }
