@@ -25,7 +25,7 @@
 
 ## Stretch Goals Remaining:
 * Enable Player 2 ('buzz-in' function,timer, turn tracking, allow players to input their name)
-* Visually indicate if answer is correct or incorrect, indicate correct answer if given answer is incorrect
+* ~Visually indicate if answer is correct or incorrect, indicate correct answer if given answer is incorrect~
 * Enable round 2
 * Enable Final Jeopardy (play the Jeopardy music!)
 
