@@ -7,6 +7,8 @@
 ## Technologies used:
   HTML, Javascript, CSS, git, git-hub Projects, git-hub pages
 
+  The game board is created in the DOM using javascript, which has its benefits and drawbacks. The higher degree of complexity and longer development time is balanced by greater and more flexible functionality, a smaller and simpler html footprint, and modular-like design.
+
 ## Requirements:
   Sense of humor
 
