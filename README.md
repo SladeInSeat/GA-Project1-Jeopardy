@@ -1,6 +1,7 @@
 # GA Project1 Jeoparody
 
-  Play a Jeopardy-like trivia game in a browser. Select a point value square from a category and choose an answer. Correct answers increase your score by the point value and incorrect answers decrease you score by the point value. The win condition is to have a postive score after all questions are answered.
+  Play a Jeopardy-like trivia game in a browser. Select a point value square from a category and choose an answer. Correct answers increase your score by the point value and incorrect answers decrease you score by the point value. The win condition is to have a postive score after all questions are answered. However, for demonstrations sake, the game is limited to a few rounds.
+  
   Try it out! [Jeoparody](https://sladeinseat.github.io/GA-Project1-Jeopardy/)
 
 ## Technologies used:
