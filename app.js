@@ -1,6 +1,6 @@
 
 //  Global Variables
-let questionsRemaining = 25;    //  tracks end of game condition
+let questionsRemaining = 4;    //  tracks end of game condition
 const categoryNames = ['Geography', 'History', 'Sports & Leisure', 'Entertainment', 'Arts & Literature'];
 let idString = ''   //  used to identify corresponding object in questionObjects to selected question div
 
@@ -89,14 +89,13 @@ function setidString(value){
     idString = value;
 };
 
-//  populateModal: Populates modal div by getting id from this. div, using id to look up data from
+//  populateModal: Populates modal div by getting id of this div, using id to look up data from
 //  questionObjects array, populates questions and answers with data, creates 
 //  event listeners on answer divs. It sets the global varialbe, idString to this.id.
 //  Is an EventListener on questionBoxes
 function populateModal() {
     document.getElementsByClassName('modalContainer')[0].style.display = 'flex';
     setidString(this.getAttribute('id'));
-    // idString = this.getAttribute('id'); 
     this.textContent = '';
     this.removeEventListener('click', populateModal);
     let questionContainer = document.getElementsByClassName('question')[0];
@@ -112,7 +111,7 @@ function populateModal() {
 
 //  check_display_WinCondition: decrements the global variable questionsRemaining. Checks if
 //  questionsRemaining equals 0, which indicates end of game.
-//  Then makes modal visible, the top two answer boxes are set to display players scores,
+//  If = 0, makes modal visible, the top two answer boxes are set to display players scores,
 //  and whoever has highest score is named in the displayed win message.
 function check_display_WinCondition() {
 
@@ -172,27 +171,26 @@ function getActivePlayerKey(){
 };
 
 //  indicateCurrentPlayerTurn: Changes .playerStatus backgrounds to indicate
-//  current player turn
+//  active player
 function indicateActivePlayerTurn(){
     let activePlayerKey = getActivePlayerKey()
     let activePlayerIndex = playersData[activePlayerKey].id
     let playerBox = document.getElementsByClassName('playerStatus')[activePlayerIndex]
     playerBox.style.backgroundColor = '#FFE466';
-    let otherPlayerIndex = activePlayerIndex*-1 + 1
+    let otherPlayerIndex = activePlayerIndex*-1 + 1     // swaps 0 an 1
     let otherPlayerBox = document.getElementsByClassName('playerStatus')[otherPlayerIndex]
     otherPlayerBox.style.backgroundColor = '#060CE9'
 };
 
-//  switchPlayerTurn: modifies global variable playerTurn to indicate current
+//  switchPlayerTurn: modifies isActive attributes of playerData object reflect
 //  active player
 function switchPlayerTurn(){
     playersData["player1"].isActive = playersData["player1"].isActive*-1 + 1
     playersData["player2"].isActive = playersData["player2"].isActive*-1 + 1
 };
 
-//  getCurrentScore: Gets current player to know which player score to get, then returns
-//  text content of appropriate playerScore div. Player score will eventually be moved
-//  to an object instaed of in the DOM.
+//  getCurrentScore: Calls getActivePlayerKey and retrieves active players score from
+//  playerData object.
 function getCurrentScore() {
     let activePlayerKey = getActivePlayerKey();
     let currentScoreValue = playersData[activePlayerKey].score

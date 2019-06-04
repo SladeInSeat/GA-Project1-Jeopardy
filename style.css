@@ -142,7 +142,6 @@ body{
     width: 70vw;
     background:#060CE9;
     border: 10px solid black;
-
 }
 
 .question{
@@ -155,8 +154,6 @@ body{
     width: 50vw;
     font-size: 1.5em;
     margin: 5px 0px;
-
-
 }
 
 .answer{
@@ -168,6 +165,4 @@ body{
     height: 8vh;
     width: 40vw;
     font-size: 1em;
-
-
 }
